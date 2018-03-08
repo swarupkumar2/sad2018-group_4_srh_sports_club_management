@@ -12,7 +12,7 @@
                     <h3 align="center">SRH Sports Club Member Login</h3>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" [(ngModel)]="user.email" name="email" placeholder="Email" required>
+                      <input type="email" pattern = "\d{8}@stud.hochschule-heidelberg.de" class="form-control" [(ngModel)]="user.email" name="email" placeholder="Email" required>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Password</label>
