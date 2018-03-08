@@ -1,5 +1,7 @@
-.btn {
-    background-color: #008CBA;; /* Green */
+  .btn {
+    background-color: #008CBA;
+    ;
+    /* Green */
     border: 1;
     color: white;
     padding: 15px 32px;
@@ -7,19 +9,18 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-}
-
-.btn:hover {background-color: #3e8e41}
-
-.btn:active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-
-.main__body{
-    height: 0px;
+  }
+  .btn:hover {
+    background-color: #3e8e41
+  }
+  .btn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+  .main__body {
+    height: 100%;
     background-color: #068d49;
-  
-}
-
+    background-image: url('assets/images/srh.jpg');
+    background-size: cover;
+  }
