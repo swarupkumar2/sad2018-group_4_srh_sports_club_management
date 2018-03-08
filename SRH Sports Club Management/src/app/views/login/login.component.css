@@ -9,6 +9,9 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    border-radius: 270px;
+    -webkit-transition: background-color 0.2s, color 0.2s, border 0.2s;
+    transition: background-color 0.2s, color 0.2s, border 0.2s;
   }
   .btn:hover {
     background-color: #3e8e41
