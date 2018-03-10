@@ -1,42 +1,88 @@
-<div class="container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Scheduling</title>
 
-  <!-- Static navbar -->
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Welcome to SRH Sports Club</a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a>Home</a></li>
-          <li><a>About</a></li>
-          <li><a>Contact</a></li>
-        </ul>
+    <!-- CSS -->
+    <!-- load Bootstrap and custom style.css -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/journal/bootstrap.min.css">
+   
 
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="" (click)="authService.logout()">Logout</a></li>
-        </ul>
+    <!-- JS -->
+    <!-- load Angular, Firebase, Firebase Angular Library, and custom app.js -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/1.1.1/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+ 
+  </head>
+
+  <script>
+    // create our angular module and inject firebase
+  angular.module('scheduleApp', ['firebase'])
+  
+  // create our main controller and get access to firebase
+  .controller('mainController', function($scope, $firebase) {
+  
+   // connect to firebase 
+   var ref = new Firebase("https://srh-authentication.firebaseio.com/days");  
+    var fb = $firebase(ref);
+  
+    $scope.reset = function() {    
+  
+  fb.$set({
+    monday: {
+      name: 'Monday',
+      slots: {
+        0900: {
+          time: '9:00am',
+          booked: false
+        },
         
-      </div><!--/.nav-collapse -->
-    </div><!--/.container-fluid -->
-  </nav>
+      }
+    },
+    
+  });    
+  
+  }
+  
+  });
+  
+  
+  </script>
 
-  <!-- Main component for a primary marketing message or call to action -->
-  <div class="jumbotron">
-    <h1>Welcome to SRH Hochshule Heidelberg - Sports</h1>
-    <p>This is just to show that we have our Authentification done right :) </p>
-    <p *ngIf="!authService.isLoggedIn()">
-      <a class="btn btn-lg btn-primary" href="" role="button" (click)="authService.logout()">Login</a>
-    </p>
-    <p *ngIf="authService.isLoggedIn()">
-      <a class="btn btn-lg btn-primary" href="" role="button" (click)="authService.logout()">Logout</a>
-    </p>
+
+<body>
+<div class="container" ng-app="scheduleApp" ng-controller="mainController">
+
+  <div class="page-header text-center">       
+    <h1>Schedule City</h1>        
   </div>
 
-</div> <!-- /container -->
+  <!-- were doing one day with 1 time slot for simplicity -->
+  <!-- we'll use angular's ng-repeat in a bit to get the other days and times -->
+  <div class="row times">
+
+    <div class="col-xs-4 text-center">
+
+      <h2>Monday</h2>
+
+      <div class="time-slot">       
+        <input type="checkbox" id="monday-time">
+        <label for="monday-time">9:00am</label>
+      </div>
+    </div>    
+
+  </div>
+
+  <p class="text-center">    
+    <a href="#" class="btn btn-primary" ng-click="reset()">Reset</a>
+  </p>
+
+</div>  
+
+
+
+</body>
+</html>
