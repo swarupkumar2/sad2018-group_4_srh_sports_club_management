@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutes } from './app.routes';
 
 import { FormsModule } from '@angular/forms';
+import {HttpModule} from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
@@ -17,17 +18,20 @@ import * as firebase from 'firebase/app';
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from 'app/services/auth-guard.service';
+import { SchedulerComponent } from './scheduler/scheduler.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    SchedulerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutes,
     FormsModule,
+    HttpModule,
     AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
     AngularFireDatabaseModule,
     AngularFireAuthModule
