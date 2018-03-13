@@ -62,6 +62,16 @@ export class LoginComponent implements OnInit {
         .catch((err) => console.log('error: ' + err));
     }
 
+    createUserWithEmail() {
+
+      this.authService.createUserWithEmail(this.user.email, this.user.password)
+        .then((res) => {
+          console.log(res);
+          this.router.navigate(['dashboard']);
+        })
+        .catch((err) => console.log('error: ' + err));
+    }
+
 
 
   ngOnInit() {
