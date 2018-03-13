@@ -69,7 +69,11 @@ export class LoginComponent implements OnInit {
           console.log(res);
           this.router.navigate(['dashboard']);
         })
-        .catch((err) => console.log('error: ' + err));
+        .catch((err) => { 
+          alert(err);
+          console.log('error: ' + err);
+        });
+        
     }
 
 
