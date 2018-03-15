@@ -2,6 +2,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './views/login/login.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { NavbarComponent } from './views/navbar/navbar.component';
+import { AboutComponent } from './views/about/about.component';
+import { ContactComponent } from './views/contact/contact.component';
 
 import { AuthGuard } from './services/auth-guard.service';
 
@@ -14,7 +17,19 @@ const appRoutes: Routes = [
         path: 'dashboard',
         canActivate: [AuthGuard],
         component: DashboardComponent
-    }
+    },
+    {
+        path: 'navbar',
+        component: NavbarComponent
+    },
+    {
+        path: 'about',
+        component: AboutComponent
+    },
+    {
+        path: 'contact',
+        component: ContactComponent
+    },
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

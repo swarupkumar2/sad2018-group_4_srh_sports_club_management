@@ -19,13 +19,19 @@ import * as firebase from 'firebase/app';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from 'app/services/auth-guard.service';
 import { SchedulerComponent } from './scheduler/scheduler.component';
+import { NavbarComponent } from './views/navbar/navbar.component';
+import { AboutComponent } from './views/about/about.component';
+import { ContactComponent } from './views/contact/contact.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    SchedulerComponent
+    SchedulerComponent,
+    NavbarComponent,
+    AboutComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
