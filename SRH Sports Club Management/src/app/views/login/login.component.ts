@@ -59,15 +59,19 @@ export class LoginComponent implements OnInit {
           console.log(res);
           this.router.navigate(['dashboard']);
         })
-        .catch((err) => console.log('error: ' + err));
+        .catch((err) => { 
+          alert(err);
+          console.log('error: ' + err);
+        });
     }
 
     createUserWithEmail() {
 
       this.authService.createUserWithEmail(this.user.email, this.user.password)
         .then((res) => {
+          alert('New user '+this.user.email+' created successfully');
           console.log(res);
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['login']);
         })
         .catch((err) => { 
           alert(err);
