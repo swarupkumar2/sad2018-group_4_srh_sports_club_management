@@ -1,8 +1,7 @@
 .container{
-    background-color: #74992e;
+    background-color: rgb(148, 155, 150);
     padding: 20px;
       }
-
 
       .row{
         max-width: 1140px;
