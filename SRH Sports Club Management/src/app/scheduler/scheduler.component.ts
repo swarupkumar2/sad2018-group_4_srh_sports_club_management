@@ -44,6 +44,7 @@ export class SchedulerComponent implements OnInit {
 
     this.eventService.get()
         .then((data) => {
+            console.log(data);
             scheduler.parse(data, "json");
         })
 }

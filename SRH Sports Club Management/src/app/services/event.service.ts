@@ -53,14 +53,14 @@ export class EventService {
 		return this.promise.then(ExtractData).catch(HandleError);
 	}*/
   
-/*	insert(event: Event): Promise<Event> {
+	insert(event: Event): Promise<Event> {
 		return this.http.post(this.eventUrl, JSON.stringify(event))
 			.toPromise()
 			.then(ExtractData)
 			.catch(HandleError);
-	}*/
+	}
 
-  insert(event: Event): any {
+/*  insert(event: Event): any {
 
 	let ndate = new Date();
 	
@@ -68,7 +68,7 @@ export class EventService {
 
 	return this.db.list('event').set(ndate.getTime().toString(), JSON.stringify(event));
 	//	return this.db.list('event').push(JSON.stringify(event));
-  }
+  }*/
 
 	update(event: Event): Promise<void> {
 		return this.http.put(`${this.eventUrl}/${event.id}`, JSON.stringify(event))
