@@ -1,0 +1,58 @@
+<div class="container">
+    <app-navbar></app-navbar>
+  <div class="jumbotron">
+
+    <div class="container-fluid">
+      <div style="color: grey;">
+        <h2>{{title}}</h2>
+        <h4>{{description}}</h4>
+      </div>
+    
+      <div style="width: 300px;">
+        <form (ngSubmit)="onSubmitSlot()">
+          <div class="form-group">
+            <label for="item"></label> <input type="text"
+              class="form-control" placeholder="Enter slot number..." id="item"
+              required [(ngModel)]="itemValue" name="item">
+          </div>
+    
+          <div class="btn-group">
+            <button type="submit" class="btn btn-success" >Submit</button>
+          </div>
+        </form>
+      </div>
+
+      <div style="color: grey;">
+        <h4>Select the date</h4>
+        <h4>{{OnlyDisplayMessage}}</h4>
+      </div>
+      <div style="width: 300px;">
+          <form (ngSubmit)="onSubmitDate()">
+              <div class="form-group">
+                <label for="item"></label> 
+                <input type="date" ng-model="date_code"
+                  class="form-control" id="dateID"
+                  required [(ngModel)]="selectedDateNormal" name="date"><br>
+                <div class="btn-group">
+                  <input type="submit"class="btn btn-success"  value="Enter">
+                </div>
+            </div>
+        
+          </form>
+      </div>
+<div  style="color: grey;"><h4> Selected date:{{selectedDateNormal}}</h4></div>
+      
+      <div class="col-md-3" style="color: grey;">
+        <h3>Different Slots</h3>
+        <pre *ngFor="let slot of slots | async">{{slot}}</pre>
+      </div>
+      <div class="col-md-3" style="color: grey;">
+        <h3>Booking information</h3>
+        <pre *ngFor="let item of bookings ">{{item.key}} - {{item.value}}</pre>
+        <!-- <pre *ngFor="let item of items | keys">{{item}}</pre> -->
+        <!--<pre *ngFor="let item of items | async">{{item}}.movie</pre>:{{items[item]}}-->
+        <!--<div *ngFor="let key of items | keys">{{key}}:{{items[key]}}</div>-->
+      </div>
+    </div>
+  </div>
+</div>
