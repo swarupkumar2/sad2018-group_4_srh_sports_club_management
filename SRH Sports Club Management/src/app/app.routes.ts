@@ -6,6 +6,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { BookingComponent } from './booking/booking.component';
+import { GalleryComponent } from './gallery/gallery.component';
+import { ImageDetailComponent } from './image/image-detail.component';
 
 
 import { AuthGuard } from './services/auth-guard.service';
@@ -36,7 +38,11 @@ const appRoutes: Routes = [
         path: 'booking',
         canActivate: [AuthGuard],
         component: BookingComponent
-    }
+    },
+    {
+        path: 'gallery',
+        component: GalleryComponent
+    },
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);
