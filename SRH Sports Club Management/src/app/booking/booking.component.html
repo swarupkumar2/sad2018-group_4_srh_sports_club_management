@@ -40,7 +40,7 @@
               <input type="date" ng-model="date_code" placeholder="mm/dd/yyyy" class="form-control" id="dateID" required [(ngModel)]="selectedDateNormal" name="date">
               <br>
               <div class="btn-group">
-                <input type="submit" class="btn btn-success" value="Enter">
+                <input type="submit" class="btn btn-success" value="View">
               </div>
             </div>
             
@@ -50,15 +50,16 @@
     </div>
     <div class="container-fluid">
       <div style="color: grey;">
-        <h4 style="color: red;">{{OnlyDisplayMessage}}</h4>
+        <h4 style="color: red;">{{DisplayMessageDate}}</h4>
+        <h4 style="color: red;">{{DisplayMessageSlot}}</h4>
         <h4> Selected date:{{selectedDateNormal}}</h4>
       </div>
 
       <div class="col-md-3 col-md-offset-3" style="color: grey;">
-        <h3>Different Slots</h3>
+        <h3>Time Slots</h3>
         <pre *ngFor="let slot of slots | async">{{slot}}</pre>
       </div>
-      <div class="col-md-3" style="color: grey;">
+      <div class="col-md-3" style="color: grey; padding:left;" >
         <h3>Booking information</h3>
         <pre *ngFor="let item of bookings ">{{item.key}} - {{item.value}}</pre>
         <!-- <pre *ngFor="let item of items | keys">{{item}}</pre> -->

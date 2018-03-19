@@ -18,7 +18,8 @@ export class BookingComponent implements OnInit {
 
   title = 'SRH Football Ground Booking';
   description = 'Book your slot';
-  OnlyDisplayMessage = '';
+  DisplayMessageDate = '';
+  DisplayMessageSlot = '';
   allSlots = [1, 2, 3];
   date;
   currentDate = '';
@@ -31,10 +32,10 @@ export class BookingComponent implements OnInit {
   list: Object;
   iterator: Number;
   bookings: Array<any>;
-  curruser = '';
+  currentUser = '';
+  currentUserEmailName = '';
 
-  constructor(public db: AngularFireDatabase, public firebaseAuth: AuthService, public authserve: AngularFireAuth) {
-    //var user = this.firebaseAuth.auth().currentUser;
+  constructor(public db: AngularFireDatabase, public authserve: AngularFireAuth) {
     this.date_code = new Date();
 
     this.slots = db.list('slots').valueChanges();
@@ -45,51 +46,92 @@ export class BookingComponent implements OnInit {
 
     this.calculateBookingsInfo();
 
+    this.currentUser = this.authserve.auth.currentUser.displayName;
+    if (this.authserve.auth.currentUser.email != null) {
+      this.currentUserEmailName = this.authserve.auth.currentUser.email.split('@')[0];
+
+    }
+    if (this.currentUser == null) {
+      this.currentUser = this.currentUserEmailName;
+    }
+  }
+
+  cancelBooking() {
+    alert('Cancel');
   }
 
 
   onSubmitSlot() {
+    var isExist = false;
+    var isNotBooked = false;
+    if (!(this.currentDate > this.selectedDate)) {
 
-    if(this.currentDate > this.selectedDate){
-      alert('you cant book');
+      this.allSlots.map(slot => {
+        if (Number(this.itemValue) == slot) isExist = true;
 
-    }
-    else {
+      });
 
-      this.db.list('/groundBooking/'+this.selectedDate+"/").set(this.itemValue,"Username");
-      this.itemValue = '';
+      this.bookings.map(booking => {
+        if (Number(this.itemValue) == booking.key && booking.value == "Not Booked") {
+          isNotBooked = true;
+        }
+      });
+
+      if (isExist && isNotBooked) {
+        this.DisplayMessageSlot = '';
+        this.db.list('/groundBooking/' + this.selectedDate + "/").set(this.itemValue, this.currentUser + ':' + this.currentUserEmailName);
+        this.itemValue = '';
+      }
+
+      else if (!isExist) {
+        this.DisplayMessageSlot = 'Please select one of given slots';
+      }
+
+      else if (!isNotBooked) {
+        this.DisplayMessageSlot = 'The selected slot is already booked';
+      }
     }
   }
 
 
   onSubmitDate() {
+    this.DisplayMessageSlot = '';
     this.selectedDate = this.selectedDateNormal.replace('-', '');
     this.selectedDate = this.selectedDate.replace('-', '');
     this.selectedDate = this.selectedDate.replace(" ", "");
 
-    this.date_code = new Date();
+    if (this.currentDate > this.selectedDate) {
+      this.DisplayMessageDate = 'You cannot book slots for previous days';
+    }
+    else {
+      this.DisplayMessageDate = '';
+    }
+
     this.calculateBookingsInfo();
   }
 
 
   calculateBookingsInfo() {
-
     this.slots = this.db.list('slots').valueChanges();
-
     this.groundBooking = this.db.list('groundBooking/' + this.selectedDate).snapshotChanges();//snapshotChanges();//[currentDate];
     var bookings = [];
 
     this.groundBooking.subscribe(data => {
       bookings = [];
-      if (data) {
 
+      if (data) {
         data.forEach(snapshot => {
           var temp = {
             key: "",
             value: ""
           };
           temp.key = snapshot.key;
-          temp.value = snapshot.payload.val();
+          if (snapshot.payload.val().split(':') != null) {
+            temp.value = snapshot.payload.val().split(':')[0];
+          }
+          else {
+            temp.value = snapshot.payload.val();
+          }
           bookings.push(temp);
         });
 
@@ -98,6 +140,7 @@ export class BookingComponent implements OnInit {
           bookings.map(obj => {
             if (obj.key == slot) isExist = true;
           });
+
           if (!isExist) {
             var temp = {
               key: slot,
@@ -107,6 +150,7 @@ export class BookingComponent implements OnInit {
           }
         })
         this.bookings = bookings;
+
       }
     })
   }
