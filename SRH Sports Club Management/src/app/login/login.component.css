@@ -27,3 +27,17 @@
     background-image: url('assets/images/srh.jpg');
     background-size: cover;
   }
+
+  .text-success{
+color: white;
+    text-decoration: underline;
+    text-decoration-color: white;
+    text-align: center;
+    font-style: bold;  
+  }
+  .btn-reset:hover {
+    background-color: #3e8e41
+  }
+  .btn-reset {
+    padding: 10px 25px;
+  }

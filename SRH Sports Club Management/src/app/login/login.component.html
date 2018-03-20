@@ -26,6 +26,11 @@
                         <button type="buton" class="btn btn-primary btn-block" style="margin-bottom: 20px" (click)="createUserWithEmail()" [disabled]="formCtrl.form.invalid">
                           Register with SRH Email
                         </button>
+                        <button type="buton" class="btn btn-reset btn-primary btn-block text-danger" style="margin-bottom: 10px" (click)="sendResetEmail()" [disabled]="formCtrl.form.invalid">
+                          Password reset
+                        </button>
+                      <!--  <a *ngIf="!resetPassword" class="text-danger" (click)="sendResetEmail()">pr</a> -->
+	                  	<p *ngIf="resetPassword" class="text-success">Check your email to reset password!</p>
                     </div>
                     
 
@@ -49,6 +54,7 @@
                           <i class="fa fa-google" aria-hidden="true"></i>
                           Login with Google
                         </button>
+                        
                     </div>                  
                   </form>
                   

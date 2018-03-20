@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
+  authState: any = null;
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
 
@@ -25,13 +26,11 @@ export class AuthService {
       );
   }
 
-
   signInWithTwitter() {
     return this._firebaseAuth.auth.signInWithPopup(
       new firebase.auth.TwitterAuthProvider()
     )
   }
-
 
   signInWithFacebook() {
     return this._firebaseAuth.auth.signInWithPopup(
@@ -65,8 +64,21 @@ export class AuthService {
     return this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
 
   }
-
-
+  get isUserAnonymousLoggedIn(): boolean {
+    return (this.userDetails !== null) ? this.userDetails.isAnonymous : false
+  }
+ 
+  get currentUserId(): string {
+    return (this.userDetails !== null) ? this.userDetails.uid : ''
+  }
+ 
+  get currentUserName(): string {
+    return this.userDetails['email']
+  }
+ 
+  get currentUser(): any {
+    return (this.userDetails !== null) ? this.userDetails : null;
+  }
   isLoggedIn() {
   if (this.userDetails == null ) {
       return false;
@@ -75,9 +87,14 @@ export class AuthService {
     }
   }
 
-
   logout() {
     this._firebaseAuth.auth.signOut()
     .then((res) => this.router.navigate(['/']));
+  }
+
+  resetPassword(email: string) {
+    return this._firebaseAuth.auth.sendPasswordResetEmail(email)
+      .then(() => console.log('sent Password Reset Email!'))
+      .catch((error) => console.log(error))
   }
 }

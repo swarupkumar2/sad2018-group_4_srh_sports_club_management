@@ -13,10 +13,16 @@ export class LoginComponent implements OnInit {
     email: '',
     password: ''
   };
-
+  errorMessage = '';
+  error: {name: string, message: string} = {name: '', message: ''};
+  resetPassword = false;
   constructor(private authService: AuthService, private router: Router) {
   }
 
+  clearErrorMessage() {
+    this.errorMessage = '';
+    this.error = {name: '', message: ''};
+  }
 
    signInWithTwitter() {
       this.authService.signInWithTwitter()
@@ -66,7 +72,6 @@ export class LoginComponent implements OnInit {
     }
 
     createUserWithEmail() {
-
       this.authService.createUserWithEmail(this.user.email, this.user.password)
         .then((res) => {
           alert('New user '+this.user.email+' created successfully');
@@ -80,7 +85,15 @@ export class LoginComponent implements OnInit {
         
     }
 
-
+    sendResetEmail() {
+      this.clearErrorMessage()
+   
+      this.authService.resetPassword(this.user.email)
+        .then(() => this.resetPassword = true)
+        .catch(_error => {
+          this.error = _error
+        })
+    }
 
   ngOnInit() {
   }
