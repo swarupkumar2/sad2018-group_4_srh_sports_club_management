@@ -26,7 +26,7 @@ export class SchedulerComponent implements OnInit {
     scheduler.init(this.schedulerContainer.nativeElement, new Date());
 
     scheduler.attachEvent("onEventAdded", (id, ev) => {
-        this.eventService.insert(this.serializeEvent(ev, true))
+        this.eventService.insert(this.serializeEvent(ev))
             .then((response)=> {
                 if(response.id != id){
                     scheduler.changeEventId(id, response.id);
@@ -44,7 +44,6 @@ export class SchedulerComponent implements OnInit {
     
     this.eventService.get()
         .then((data) => {
-            console.log(data);
             scheduler.parse(this.extractBody(data), "json");
         })
 }
@@ -72,7 +71,6 @@ private extractBody(data: any): Event[] {
         event = data[i];
         result.push(event);
     }
-    console.log(result);
     return result;
 
 }

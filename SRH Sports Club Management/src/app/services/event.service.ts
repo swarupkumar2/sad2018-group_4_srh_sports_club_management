@@ -14,72 +14,34 @@ import { DataSnapshot } from "@firebase/database";
 export class EventService {
  // private eventUrl = "api/event";
 
- private eventUrl = "https://srh-authentication.firebaseio.com/event.json";
+ private eventUrl = "https://srh-authentication.firebaseio.com/event";
 
 	constructor(public db: AngularFireDatabase, private http: Http) {}
 
 
 	get(): Promise<Event[]>{
-
-//		console.log(this.http.get(this.eventUrl).toPromise().catch(HandleError));
-
-		return this.http.get(`${this.eventUrl}`)
+		return this.http.get(`${this.eventUrl}.json`)
 			.toPromise()
 			.then(ExtractBody)
 			.catch(HandleError);
-
 	}
 
-/*	get(): Promise<Event[]>{
-
-		this.items = this.db.list('event').snapshotChanges();
-
-		this.items.subscribe(data => {
-
-			console.log(data);
-
-			data.forEach(snapshot => {
-				
-				var temp = {
-					key: "",
-					value: ""
-				};
-				temp.key = snapshot.key;
-				temp.value = snapshot.payload.val();
-				console.log(temp.value);
-
-			});
-		});
-		
-		return this.promise.then(ExtractData).catch(HandleError);
-	}*/
-  
 	insert(event: Event): Promise<Event> {
-		return this.http.post(this.eventUrl, JSON.stringify(event))
+		return this.http.put(`${this.eventUrl}/${event.id}.json`, JSON.stringify(event))
 			.toPromise()
 			.then(ExtractData)
 			.catch(HandleError);
 	}
 
-/*  insert(event: Event): any {
-
-	let ndate = new Date();
-	
-	console.log(ndate.getTime());
-
-	return this.db.list('event').set(ndate.getTime().toString(), JSON.stringify(event));
-	//	return this.db.list('event').push(JSON.stringify(event));
-  }*/
-
 	update(event: Event): Promise<void> {
-		return this.http.put(`${this.eventUrl}/${event.id}`, JSON.stringify(event))
+		return this.http.put(`${this.eventUrl}/${event.id}.json`, JSON.stringify(event))
 			.toPromise()
 			.then(ExtractData)
 			.catch(HandleError);
   }
 
 	remove(id: number): Promise<void> {
-		return this.http.delete(`${this.eventUrl}/${id}`)
+		return this.http.delete(`${this.eventUrl}/${id}.json`)
 			.toPromise()
 			.then(ExtractData)
 			.catch(HandleError);
