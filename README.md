@@ -4,7 +4,7 @@ SRH Campus Sports at the SRH Hochshule Heidelberg, has a fantastic Indoor Ground
 
 This project aims to implement the "Online Slot Booking" for a groups of students who want to practice any particular kind of Sport (Cricket, Football, BasketBall, Judo, Wrestling, Table Tennis, Badminton etc.,) for a particular amount of time. They have to make an advance booking before they are in the SRH Campus Sports. This should also solve the conflict between groups of students managing to play two or more different sport in one single place. 
 
-In our project we have as Views, we have all the components created to serve a purpose (login, dashboard, about, gallery etc.,). 
+In our project as Views, we have all the components created to serve a purpose (login, dashboard, about, gallery etc.,). 
 "app.routes.ts" has routing details of each component upon request for service from client.
 
 In order to get this project up and running locally (Also includes steps followed to implement the project): 
