@@ -28,9 +28,13 @@ export class SchedulerComponent implements OnInit {
     scheduler.attachEvent("onEventAdded", (id, ev) => {
         this.eventService.insert(this.serializeEvent(ev))
             .then((response)=> {
-                if(response.id != id){
+               /* if(response.id != id){
                     scheduler.changeEventId(id, response.id);
-                }
+                };*/
+            this.eventService.get()
+                .then((data) => {
+                    scheduler.parse(this.extractBody(data), "json");
+            });
             })
     });
 
@@ -45,7 +49,8 @@ export class SchedulerComponent implements OnInit {
     this.eventService.get()
         .then((data) => {
             scheduler.parse(this.extractBody(data), "json");
-        })
+        });
+
 }
 
 private serializeEvent(data: any, insert: boolean = false): Event {

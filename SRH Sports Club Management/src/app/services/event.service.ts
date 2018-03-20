@@ -26,7 +26,7 @@ export class EventService {
 			.catch(HandleError);
 	}
 
-	insert(event: Event): Promise<Event> {
+	insert(event: Event): Promise<void> {
 		return this.http.put(`${this.eventUrl}/${event.id}.json`, JSON.stringify(event))
 			.toPromise()
 			.then(ExtractData)
