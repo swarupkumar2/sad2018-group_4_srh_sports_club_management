@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Event} from "../models/event";
 import {Http} from "@angular/http";
-import {ExtractData, HandleError} from "./service-helper";
+import {ExtractData, HandleError, ExtractBody} from "./service-helper";
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { getLocaleDateTimeFormat } from '@angular/common';
 
@@ -16,17 +16,18 @@ export class EventService {
 
  private eventUrl = "https://srh-authentication.firebaseio.com/event.json";
 
-  items: Observable<any[]>;
-  child: Observable<any[]>;
-
 	constructor(public db: AngularFireDatabase, private http: Http) {}
 
 
 	get(): Promise<Event[]>{
 
-		console.log(this.http.get(this.eventUrl).toPromise().catch(HandleError));
-		return this.http.get(this.eventUrl)
-			.toPromise().catch(HandleError);
+//		console.log(this.http.get(this.eventUrl).toPromise().catch(HandleError));
+
+		return this.http.get(`${this.eventUrl}`)
+			.toPromise()
+			.then(ExtractBody)
+			.catch(HandleError);
+
 	}
 
 /*	get(): Promise<Event[]>{

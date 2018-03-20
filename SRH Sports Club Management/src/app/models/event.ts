@@ -1,6 +1,6 @@
 export class Event {
     id: string;
-    start_date: string;
-    end_date: string;
+    start_date: Date;
+    end_date: Date;
     text: string;
 }

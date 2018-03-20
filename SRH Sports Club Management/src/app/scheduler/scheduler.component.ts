@@ -41,11 +41,11 @@ export class SchedulerComponent implements OnInit {
     scheduler.attachEvent("onEventDeleted", (id) => {
         this.eventService.remove(id);
     });
-
+    
     this.eventService.get()
         .then((data) => {
             console.log(data);
-            scheduler.parse(data, "json");
+            scheduler.parse(this.extractBody(data), "json");
         })
 }
 
@@ -62,6 +62,19 @@ private serializeEvent(data: any, insert: boolean = false): Event {
       }
   }
   return result as Event;
+}
+
+private extractBody(data: any): Event[] {
+    var result = [];
+    var event: Event;
+
+    for(let i in data){
+        event = data[i];
+        result.push(event);
+    }
+    console.log(result);
+    return result;
+
 }
  
 }
