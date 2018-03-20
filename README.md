@@ -20,8 +20,8 @@ In order to get this project up and running locally (Also includes steps followe
 
 The Authors of the Project:
 
-Karan Vichare
-Eldon Kuzhyelil
-Swarup Kumar
-Omar Syed
+Karan Vichare,
+Eldon Kuzhyelil,
+Swarup Kumar,
+Omar Syed,
 Sandesh Athreya
