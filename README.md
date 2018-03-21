@@ -27,6 +27,6 @@ The Authors of the Project:
 
 Karan Vichare,
 Eldon Kuzhyelil,
-Swarup Kumar,
+Biswarup Sahoo,
 Omar Syed,
 Sandesh Athreya
