@@ -30,6 +30,8 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { ImageDetailComponent } from './image/image-detail.component';
 
 
+import {BookingsService} from "./services/bookings.service";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +56,7 @@ import { ImageDetailComponent } from './image/image-detail.component';
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
-  providers: [ImageService, AuthService, AuthGuard, ImageFilterPipe],
+  providers: [ImageService, AuthService, AuthGuard, ImageFilterPipe,BookingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

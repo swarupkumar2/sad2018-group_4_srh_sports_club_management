@@ -2,14 +2,13 @@
   <app-navbar></app-navbar>
   <div class="jumbotron centeredContent">
 
-      <div style="color: grey;text-align:center;">
-          <h2>{{title}}</h2>
-        </div>
+    <div style="color: grey;text-align:center;">
+      <h2>{{title}}</h2>
+    </div>
     <div class="container-fluid bookingContainer">
 
       <div class="slotBookingContainer">
         <div style="color: grey;">
-          <!-- <h2>{{title}}</h2> -->
           <h4>{{description}}</h4>
         </div>
 
@@ -17,16 +16,15 @@
           <form (ngSubmit)="onSubmitSlot()">
             <div class="form-group">
               <label for="item"></label>
-              <input type="text" class="form-control" placeholder="Enter slot number..." id="item" required [(ngModel)]="itemValue"
-                name="item">
+              <input type="text" class="form-control" placeholder="Enter slot number..." id="item" required [(ngModel)]="itemValue" name="item">
             </div>
 
             <div class="btn-group">
               <button type="submit" class="btn btn-success">Book</button>
-              <!-- <input type="button" ng-click="cancelBooking()" class="btn btn-success" value="Cancel booking"> -->
             </div>
           </form>
         </div>
+
       </div>
 
       <div class="dateContainer">
@@ -37,13 +35,14 @@
           <form (ngSubmit)="onSubmitDate()">
             <div class="form-group">
               <label for="item"></label>
-              <input type="date" ng-model="date_code" placeholder="mm/dd/yyyy" class="form-control" id="dateID" required [(ngModel)]="selectedDateNormal" name="date">
+              <input type="date" ng-model="date_code" placeholder="mm/dd/yyyy" class="form-control" id="dateID" required [(ngModel)]="selectedDateNormal"
+                name="date">
               <br>
               <div class="btn-group">
                 <input type="submit" class="btn btn-success" value="View">
               </div>
             </div>
-            
+
           </form>
         </div>
       </div>
@@ -59,13 +58,11 @@
         <h3>Time Slots</h3>
         <pre *ngFor="let slot of slots | async">{{slot}}</pre>
       </div>
-      <div class="col-md-3" style="color: grey; padding:left;" >
+      <div class="col-md-3" style="color: grey; padding:left;">
         <h3>Booking information</h3>
-        <pre *ngFor="let item of bookings ">{{item.key}} - {{item.value}}</pre>
-        <!-- <pre *ngFor="let item of items | keys">{{item}}</pre> -->
-        <!--<pre *ngFor="let item of items | async">{{item}}.movie</pre>:{{items[item]}}-->
-        <!--<div *ngFor="let key of items | keys">{{key}}:{{items[key]}}</div>-->
+        <pre *ngFor="let item of bookings ">{{item.key}} - {{item.value}}<br><div [hidden]="item.hidden" class="btn btn-success" (click)="onCancelSlot(item.key)">Cancel</div></pre>
       </div>
+
     </div>
   </div>
 </div>
