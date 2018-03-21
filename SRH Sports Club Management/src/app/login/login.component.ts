@@ -95,6 +95,10 @@ export class LoginComponent implements OnInit {
         })
     }
 
+    redirectToRegistration(){
+      this.router.navigate(['./registeruser']);
+    }
+
   ngOnInit() {
   }
 

@@ -8,6 +8,7 @@ import { ContactComponent } from './contact/contact.component';
 import { BookingComponent } from './booking/booking.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { ImageDetailComponent } from './image/image-detail.component';
+import { RegisteruserComponent } from './registeruser/registeruser.component';
 
 
 import { AuthGuard } from './services/auth-guard.service';
@@ -43,6 +44,11 @@ const appRoutes: Routes = [
         path: 'gallery',
         component: GalleryComponent
     },
+    {
+        path: 'registeruser',
+        component: RegisteruserComponent
+    },
+   
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);
