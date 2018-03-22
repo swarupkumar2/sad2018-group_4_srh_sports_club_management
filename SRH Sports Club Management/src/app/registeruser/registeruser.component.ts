@@ -35,9 +35,10 @@ export class RegisteruserComponent implements OnInit {
     {
       this.authService.createUserWithEmail(this.profileService.selectedProfile.email, this.profileService.selectedProfile.password)
         .then((res) => {
-          //alert('New user '+this.profileService.selectedProfile.name+' created successfully');
-          console.log(res);
-         alert(res);
+          alert('New user '+res.email+' created successfully');
+          console.log(profileForm.value.name);
+          console.log(res.email);
+         //alert(res);
         
         this.router.navigate(['/']);
         })
@@ -50,8 +51,8 @@ export class RegisteruserComponent implements OnInit {
    
     else
       this.profileService.updateProfile(profileForm.value);
-    this.resetForm(profileForm);
-    this.tostr.success('Submitted Succcessfully', 'Profile Register');
+      this.resetForm(profileForm);
+      this.tostr.success('Submitted Succcessfully', 'Profile Register');
   }
  
   resetForm(profileForm?: NgForm) {
