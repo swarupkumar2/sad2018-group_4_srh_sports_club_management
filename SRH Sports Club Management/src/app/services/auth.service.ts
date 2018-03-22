@@ -95,6 +95,9 @@ export class AuthService {
   resetPassword(email: string) {
     return this._firebaseAuth.auth.sendPasswordResetEmail(email)
       .then(() => console.log('sent Password Reset Email!'))
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        alert(error);
+        console.log(error)
+      })
   }
 }
