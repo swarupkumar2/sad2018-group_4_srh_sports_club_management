@@ -3,7 +3,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../services/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
-import {BookingsService} from "../services/bookings.service";
+import { BookingsService } from "../services/bookings.service";
 
 @Component({
   selector: 'app-booking',
@@ -31,9 +31,6 @@ export class BookingComponent implements OnInit {
   slots: Observable<any[]>;
   slots2: Observable<any[]>;
   hallBooking: Observable<any[]>;
-  list: Object;
-  iterator: Number;
-  bookingsToSHow = [];
   bookings: Array<any>;
   currentUser = '';
   currentUserEmailName = '';
@@ -60,8 +57,6 @@ export class BookingComponent implements OnInit {
   }
 
   calculateSlotsInfo() {
-    // this.slots = this.db.list('slots').valueChanges();
-    // this.slots2 = this.db.list('slots').snapshotChanges();
     this.slots = this.bookingsService.calculateSlotsValueInfoDB('slots');
     this.slots2 = this.bookingsService.calculateSlotsSnapshotInfoDB('slots');
     var allSlots = [];
@@ -93,14 +88,13 @@ export class BookingComponent implements OnInit {
           else if (obj.key == Number(inputVal) && obj.value == this.currentUser) {
             canCancel = true;
           }
-          else if (obj.key == Number(inputVal) && obj.value == 'Not Booked') {
+          else if (obj.key == Number(inputVal) && obj.value == 'Available') {
             notBooked = true;
           }
         });
 
         if (canCancel) {
-           //this.db.list('/hallBooking/' + this.selectedDate + "/").remove(inputVal);
-         this.bookingsService.cancelBookingDB(this.selectedDate,inputVal);
+          this.bookingsService.cancelBookingDB(this.selectedDate, inputVal);
         }
         else if (notBooked) {
           this.DisplayMessageSlot = 'The selected time slot is empty.';
@@ -126,16 +120,14 @@ export class BookingComponent implements OnInit {
       });
 
       this.bookings.map(booking => {
-        if (Number(this.itemValue) == booking.key && booking.value == "Not Booked") {
+        if (Number(this.itemValue) == booking.key && booking.value == "Available") {
           isNotBooked = true;
         }
       });
 
       if (isExist && isNotBooked) {
         this.DisplayMessageSlot = '';
-        //this.db.list('/hallBooking/' + this.selectedDate + "/").set(this.itemValue, this.currentUser + ':' + this.currentUserEmailName);
-       // this.db.list('/hallBooking/' + this.selectedDate + "/").set(this.itemValue, this.currentUser);
-        this.bookingsService.bookSlotDB(this.selectedDate,this.itemValue, this.currentUser);
+        this.bookingsService.bookSlotDB(this.selectedDate, this.itemValue, this.currentUser);
         this.itemValue = '';
       }
 
@@ -169,13 +161,10 @@ export class BookingComponent implements OnInit {
 
   calculateBookingsInfo() {
 
-    //this.hallBooking = this.db.list('hallBooking/' + this.selectedDate).snapshotChanges();//snapshotChanges();//[currentDate];
     this.hallBooking = this.bookingsService.getCurrentBookingsDB(this.selectedDate);
     var bookings = [];
-    var bookingsToSHow = [];
     this.hallBooking.subscribe(data => {
       bookings = [];
-      bookingsToSHow = [];
 
       if (data) {
         data.forEach(snapshot => {
@@ -184,15 +173,8 @@ export class BookingComponent implements OnInit {
             value: ""
           };
           temp.key = snapshot.key;
-          /*if (snapshot.payload.val().split(':') != null) {
-            //temp.value = snapshot.payload.val().split(':')[0];
-            temp.value = snapshot.payload.val();
-          }
-          else */{
-            temp.value = snapshot.payload.val();
-          }
+          temp.value = snapshot.payload.val();
           bookings.push(temp);
-          bookingsToSHow.push(temp);
         });
 
         this.allSlots.map(slot => {
@@ -208,12 +190,10 @@ export class BookingComponent implements OnInit {
           if (!isExist) {
             var temp = {
               key: slot,
-              value: "Not Booked",
+              value: "Available",
               hidden: true
             }
             bookings.push(temp);
-            bookingsToSHow.push(temp);
-
           }
           else if (bookings[id].value == this.currentUser) {
             bookings[id].hidden = false;

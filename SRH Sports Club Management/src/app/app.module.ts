@@ -35,6 +35,8 @@ import {BookingsService} from "./services/bookings.service";
 import { ProfileService } from './services/profile.service';
 import { ToastrModule } from 'ngx-toastr';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +53,7 @@ import { ToastrModule } from 'ngx-toastr';
     RegisteruserComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutes,
